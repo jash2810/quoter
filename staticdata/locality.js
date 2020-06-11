@@ -1,4 +1,4 @@
-var arr = [
+module.exports = [
     {
         "id": "1",
         "name": "Mumbai",
