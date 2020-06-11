@@ -42,6 +42,31 @@ exports.registration = async (req, res, next) => {
     }
 }
 
+exports.checkUsername = async (req, res, next) => {
+    try {
+
+        var {username} = req.body
+
+        var user = await db.User.findOne({
+            'cred.username': username
+        })
+    
+        if (username.lenght <= 2) {
+            res.json({success: true, msg: 'username should be more than 2 characters long'})
+        } else {
+            if (!user) {
+                res.json({success: true, msg: 'this username is available'})
+            } else {
+                res.json({success: true, msg: 'this username is not available'})
+            }
+        }
+        
+    } catch (error) {
+        error.status = 400
+        console.log(error);        
+    }
+}
+
 // to copy paste while you create new functions
 exports.usera = async (req, res, next) => {
     try {
