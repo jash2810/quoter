@@ -2,6 +2,12 @@ const db = require('../models')
 
 const passwordHash = require('password-hash')
 
+/********************************************************************************************************************************************/
+// ----------------------------------------------------user registration functions------------------------------------------------------------
+/********************************************************************************************************************************************/
+
+// user registration
+// POST
 exports.registration = async (req, res, next) => {
     try {
         
@@ -42,6 +48,8 @@ exports.registration = async (req, res, next) => {
     }
 }
 
+// check if the username is available or not
+// POST
 exports.checkUsername = async (req, res, next) => {
     try {
 
@@ -49,15 +57,17 @@ exports.checkUsername = async (req, res, next) => {
 
         var user = await db.User.findOne({
             'cred.username': username
+        }, {
+            'cred.username': 1
         })
-    
-        if (username.lenght <= 2) {
-            res.json({success: true, msg: 'username should be more than 2 characters long'})
+        
+        if (username.length <= 2) {
+            res.json({success: true, msg: 'username should be more than 2 characters long', status: false})
         } else {
             if (!user) {
-                res.json({success: true, msg: 'this username is available'})
+                res.json({success: true, msg: 'this username is available', status: true})
             } else {
-                res.json({success: true, msg: 'this username is not available'})
+                res.json({success: true, msg: 'this username is not available', status: false})
             }
         }
         
@@ -66,6 +76,10 @@ exports.checkUsername = async (req, res, next) => {
         console.log(error);        
     }
 }
+
+/********************************************************************************************************************************************/
+// ----------------------------------------------------temporary functions--------------------------------------------------------------------
+/********************************************************************************************************************************************/
 
 // to copy paste while you create new functions
 exports.usera = async (req, res, next) => {
