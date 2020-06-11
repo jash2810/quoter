@@ -27,6 +27,7 @@ app.get('/', (req, res, next) => {
 })
 
 app.use('/user', routes.user)
+app.use('/auth', routes.auth)
 
 app.use(handle.notFound)
 app.use(handle.errors)

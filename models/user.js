@@ -16,7 +16,8 @@ const UserSchema = new mongoose.Schema({
    },
    cred: {
        username: {type: String, required: true, unique: true},
-       password: {type: Array}
+       password: {type: String},
+       oldPasswords: {type: Array}
    },
    collections: [{
        name: {type: String},
@@ -27,10 +28,10 @@ const UserSchema = new mongoose.Schema({
        createdDate: {type: Date, default: Date.now}
    }],
    account: {
-       category: {type: String}, //personal / blog
+       category: {type: String, default: 'personal'}, //personal / blog
        privacy: {type: String, default: 'private'}, // public / private
        endorsements: {
-           total: {type: Number},
+           total: {type: Number, default: 0},
            by: [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'User'
