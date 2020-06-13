@@ -21,6 +21,30 @@ exports.getAllLocalities = async (req, res, next) => {
     }
 }
 
+// get states
+// GET
+exports.getStates = async (req, res, next) => {
+    try {
+        
+        var data = []
+
+        localities.forEach(l => {
+            data.push(l.state)
+        });
+
+        var uniqueArray = data.filter(function(item, pos, self) {
+            return self.indexOf(item) == pos;
+        })
+
+        res.json({success: true, states: uniqueArray})
+        
+
+    } catch (error) {
+        error.status = 400
+        console.log(error);        
+    }
+} 
+
 // get specific cities from the state given
 // GET
 exports.getCityOfSpecificState = async (req, res, next) => {

@@ -64,14 +64,10 @@ exports.checkUsername = async (req, res, next) => {
             'cred.username': 1
         })
         
-        if (username.length <= 2) {
-            res.json({success: true, msg: 'username should be more than 2 characters long', status: false})
+        if (!user) {
+            res.json({success: true, msg: 'this username is available', status: true})
         } else {
-            if (!user) {
-                res.json({success: true, msg: 'this username is available', status: true})
-            } else {
-                res.json({success: true, msg: 'this username is not available', status: false})
-            }
+            res.json({success: true, msg: 'this username is not available', status: false})
         }
         
     } catch (error) {
@@ -104,7 +100,7 @@ exports.login = async (req, res, next) => {
                 var _id = user._id
 
                 var token = jwt.sign({username, password, _id}, secret.jwt_secret)
-                res.cookie("user", token)                 
+                // res.cookie("user", token)                 
                 
                 console.log(jwt_decode(token));
                 

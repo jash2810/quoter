@@ -15,6 +15,9 @@ var handle = require('../handlers')
 // get all the localities
 router.get('/localities', handle.getAllLocalities)
 
+// get all the localities
+router.get('/localities/states', handle.getStates)
+
 // get city of specific state
 router.get('/localities/:state', handle.getCityOfSpecificState)
 
